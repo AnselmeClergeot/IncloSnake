@@ -6,13 +6,13 @@
 
 const unsigned int WINDOW_WIDTH = 600;
 const unsigned int WINDOW_HEIGHT = 600;
-const unsigned int MAP_WIDTH = 600;
-const unsigned int SNAKE_WIDTH = 1;
+const unsigned int MAP_WIDTH = 60;
+const unsigned int SNAKE_WIDTH = 10;
 
-const unsigned int START_LENGTH = 1000;
+const unsigned int START_LENGTH = 20;
 
 const sf::Color BACKGROUND_COLOR = sf::Color::Black;
-const sf::Color SNAKE_COLOR = sf::Color::Green;
+const std::string HEAD_IMAGE_PATH = "images/head_image.png", BODY_IMAGE_PATH = "images/body_image.png", TAIL_IMAGE_PATH = "images/tail_image.png";
 
 int main()
 {
@@ -20,7 +20,9 @@ int main()
 	game_window.setVerticalSyncEnabled(true);
 
 	Direction head_direction = None; 
-	Snake snake(Position {MAP_WIDTH/2, MAP_WIDTH/2}, START_LENGTH, Right, SNAKE_WIDTH);
+
+	Snake snake(Position {MAP_WIDTH/2, MAP_WIDTH/2}, START_LENGTH, Right);
+	snake.set_style(SNAKE_WIDTH, HEAD_IMAGE_PATH, BODY_IMAGE_PATH, TAIL_IMAGE_PATH);
 	
 	while(game_window.isOpen())
 	{

@@ -16,13 +16,12 @@ class Snake
 		
 		bool move_head(const Direction direction);
 
-		std::vector<Position> get_body() const;
-
 		void draw(sf::RenderWindow &window);
 
 	private :
 		unsigned int m_body_length;
 		std::vector<Position> m_body_parts;
+		std::vector<Direction> m_body_parts_directions;
 
 		unsigned int m_body_width;
 		sf::Texture m_head_image, m_body_image, m_tail_image;

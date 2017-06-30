@@ -3,7 +3,7 @@
 Snake::Snake(const Position head_position, const unsigned int body_length, const Direction body_direction) : m_body_length(body_length)
 {
 	m_body_parts.push_back(head_position);
-
+	m_body_parts_directions.push_back(body_direction);
 
 	Position vector = vector_from_direction(body_direction);	
 	Position actuelle = head_position;
@@ -14,6 +14,7 @@ Snake::Snake(const Position head_position, const unsigned int body_length, const
 		actuelle.y += vector.y;
 
 		m_body_parts.push_back(actuelle);
+		m_body_parts_directions.push_back(body_direction);
 	}
 }
 
@@ -21,6 +22,9 @@ void Snake::set_style(const unsigned int body_width, std::string head_image, std
 {
 	m_body_width = body_width;
 	
+	m_head_image.loadFromFile(head_image);
+	m_body_image.loadFromFile(body_image);
+	m_tail_image.loadFromFile(tail_image);
 }
 
 bool Snake::move_head(const Direction direction)
@@ -32,23 +36,32 @@ bool Snake::move_head(const Direction direction)
 	Position vector = vector_from_direction(direction);
 
 	m_body_parts.insert(m_body_parts.begin(), Position { position_tete.x + vector.x, position_tete.y + vector.y });
+	m_body_parts_directions.insert(m_body_parts_directions.begin(), direction);
 }
 
 void Snake::draw(sf::RenderWindow &window)
 {
-	sf::RectangleShape shape(sf::Vector2f(m_body_width, m_body_width));
+	sf::Sprite sprite;
 
-	for(Position p : m_body_parts)
+	for(int i = 0; i < m_body_parts.size(); ++i)
 	{
-		shape.setPosition(p.x * m_body_width, p.y * m_body_width);
-		window.draw(shape);	
+		if(i == 0)
+			sprite.setTexture(m_head_image);
+		else if(i == m_body_parts.size() - 1)
+			sprite.setTexture(m_tail_image);
+		else
+			sprite.setTexture(m_body_image);
+
+		Position pos = m_body_parts[i];
+
+		sprite.setPosition(pos.x * m_body_width, pos.y * m_body_width);
+		
+		float scale = m_body_width/static_cast<float>(m_head_image.getSize().x);
+
+		sprite.setScale(scale, scale);
+		
+		window.draw(sprite);
 	}
-
-}
-
-std::vector<Position> Snake::get_body() const
-{
-	return m_body_parts;
 }
 
 Position Snake::vector_from_direction(const Direction direction) const
