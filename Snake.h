@@ -16,7 +16,11 @@ class Snake
 		
 		bool move_head(const Direction direction);
 
+		void enlarge(const unsigned int length);
+
 		void draw(sf::RenderWindow &window);
+
+		Position get_head_position() const;
 
 	private :
 		unsigned int m_body_length;
