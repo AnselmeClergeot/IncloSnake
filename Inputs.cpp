@@ -25,6 +25,10 @@ void read_direction(sf::Event &event, Direction &direction)
 				if(direction != Left)
 					direction = Right;
 			break;
+
+			default:
+				direction = None;
+			break;
 		}
 	}		
 }

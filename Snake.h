@@ -27,4 +27,5 @@ class Snake
 		sf::Texture m_head_image, m_body_image, m_tail_image;
 		
 		Position vector_from_direction(const Direction direction) const;
+		unsigned int angle_from_direction(const Direction direction) const;
 };
