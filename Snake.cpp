@@ -1,6 +1,6 @@
 #include "Snake.h"
 
-Snake::Snake(const Position head_position, const unsigned int body_length, const Direction body_direction) : m_body_length(body_length)
+Snake::Snake(Position head_position, unsigned int body_length, Direction body_direction) : m_body_length(0)
 {
 	m_body_parts.push_back(head_position);
 	m_body_parts_directions.push_back(body_direction);
@@ -8,7 +8,7 @@ Snake::Snake(const Position head_position, const unsigned int body_length, const
 	enlarge(body_length);
 }
 
-void Snake::set_style(const unsigned int body_width, std::string head_image, std::string body_image, std::string tail_image)
+void Snake::set_style(unsigned int body_width, std::string head_image, std::string body_image, std::string tail_image)
 {
 	m_body_width = body_width;
 	
@@ -17,7 +17,7 @@ void Snake::set_style(const unsigned int body_width, std::string head_image, std
 	m_tail_image.loadFromFile(tail_image);
 }
 
-bool Snake::move_head(const Direction direction)
+bool Snake::move_head(Direction direction)
 {
 	Position position_tete = m_body_parts[0];
 
@@ -30,11 +30,11 @@ bool Snake::move_head(const Direction direction)
 	m_body_parts_directions.insert(m_body_parts_directions.begin(), direction);
 }
 
-void Snake::enlarge(const unsigned int length)
+void Snake::enlarge(unsigned int length)
 {
-	Position vector = m_body_parts[m_body_length];
 	Position actuelle = m_body_parts[m_body_length];
 	Direction direction = m_body_parts_directions[m_body_length];
+	Position vector = vector_from_direction(direction);
 
 	for(int i = 0; i < length; i++)
 	{
@@ -78,10 +78,12 @@ void Snake::draw(sf::RenderWindow &window)
 
 Position Snake::get_head_position() const
 {
-	return m_body_parts[0];
+	Position grid_position = m_body_parts[0];
+
+	return Position {grid_position.x * m_body_width, grid_position.y * m_body_width};
 }
 
-Position Snake::vector_from_direction(const Direction direction) const
+Position Snake::vector_from_direction(Direction direction) const
 {
 	Position vector {0, 0};
 
@@ -103,7 +105,7 @@ Position Snake::vector_from_direction(const Direction direction) const
 	return vector;
 }
 
-unsigned int Snake::angle_from_direction(const Direction direction) const
+unsigned int Snake::angle_from_direction(Direction direction) const
 {
 	if(direction == Left)
 		return 90;

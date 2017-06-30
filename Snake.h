@@ -10,13 +10,13 @@ struct Position
 class Snake
 {
 	public :
-		Snake(const Position head_position, const unsigned int body_length, const Direction body_direction);
+		Snake(Position head_position, unsigned int body_length, Direction body_direction);
 		
-		void set_style(const unsigned int width, std::string head_image, std::string body_image, std::string tail_image);
+		void set_style(unsigned int width, std::string head_image, std::string body_image, std::string tail_image);
 		
-		bool move_head(const Direction direction);
+		bool move_head(Direction direction);
 
-		void enlarge(const unsigned int length);
+		void enlarge(unsigned int length);
 
 		void draw(sf::RenderWindow &window);
 

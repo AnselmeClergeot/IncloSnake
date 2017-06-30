@@ -1,8 +1,8 @@
 #include <list>
 #include <SFML/Graphics.hpp>
 
-#include "Snake.h"
 #include "Inputs.h"
+#include "FoodPoints.h"
 
 const unsigned int WINDOW_WIDTH = 600;
 const unsigned int WINDOW_HEIGHT = 600;
@@ -12,7 +12,7 @@ const unsigned int SNAKE_WIDTH = 10;
 const unsigned int START_LENGTH = 5;
 
 const sf::Color BACKGROUND_COLOR = sf::Color::Blue;
-const std::string HEAD_IMAGE_PATH = "images/head_image.png", BODY_IMAGE_PATH = "images/body_image.png", TAIL_IMAGE_PATH = "images/tail_image.png";
+const std::string HEAD_IMAGE_PATH = "images/head_image.png", BODY_IMAGE_PATH = "images/body_image.png", TAIL_IMAGE_PATH = "images/tail_image.png", POINT_IMAGE_PATH = "images/point.png";
 
 int main()
 {
@@ -23,6 +23,9 @@ int main()
 
 	Snake snake(Position {MAP_WIDTH/2, MAP_WIDTH/2}, START_LENGTH, Right);
 	snake.set_style(SNAKE_WIDTH, HEAD_IMAGE_PATH, BODY_IMAGE_PATH, TAIL_IMAGE_PATH);
+
+	FoodPoints food_system(snake, 1, 2, WINDOW_WIDTH, WINDOW_HEIGHT, 30);
+	food_system.set_style(POINT_IMAGE_PATH);
 	
 	while(game_window.isOpen())
 	{
@@ -44,9 +47,12 @@ int main()
 		if(head_direction != None)
 			snake.move_head(head_direction);
 
+		food_system.update();
+
 		game_window.clear(BACKGROUND_COLOR);
 
 		snake.draw(game_window);		
+		food_system.draw(game_window);
 
 		game_window.display();
 	}
