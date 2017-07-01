@@ -3,6 +3,7 @@
 
 #include "Inputs.h"
 #include "FoodPoints.h"
+#include "SoundSystem.h"
 
 const unsigned int WINDOW_WIDTH = 600;
 const unsigned int WINDOW_HEIGHT = 600;
@@ -10,7 +11,7 @@ const unsigned int MAP_WIDTH = 60;
 const unsigned int SNAKE_WIDTH = 10;
 const unsigned int FOOD_WIDTH = 2 * SNAKE_WIDTH;
 const unsigned int START_LENGTH = 5;
-const unsigned int SNAKE_SPEED = 25;
+const unsigned int SNAKE_SPEED = 30;
 
 const sf::Color BACKGROUND_COLOR = sf::Color::Blue;
 const sf::Color FOOD_COLOR = sf::Color::Green;
@@ -30,6 +31,8 @@ int main()
 	food_system.set_style(FOOD_WIDTH, FOOD_COLOR);
 
 	sf::Clock clock;
+
+	SoundSystem sounds("sounds/8_Bit_Portal_-_Still_Alive.wav", "sounds/eat_sound.wav");
 	
 	while(game_window.isOpen())
 	{
