@@ -37,7 +37,7 @@ void Snake::enlarge(unsigned int length)
 {
 	Position actuelle = m_body_parts[m_body_length];
 	Direction direction = m_body_parts_directions[m_body_length];
-	Position vector = vector_from_direction(direction);
+	Position vector = inversed_vector(direction);
 
 	for(int i = 0; i < length; i++)
 	{
@@ -111,6 +111,13 @@ Position Snake::vector_from_direction(Direction direction) const
 		vector.y = 1;
 
 	return vector;
+}
+
+Position Snake::inversed_vector(Direction direction) const
+{
+	Position vector = vector_from_direction(direction);
+
+	return Position {-vector.x, -vector.y};
 }
 
 unsigned int Snake::angle_from_direction(Direction direction) const

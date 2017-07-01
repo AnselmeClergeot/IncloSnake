@@ -32,8 +32,9 @@ class Snake
 		unsigned int m_body_width;
 		sf::Texture m_head_image, m_body_image, m_tail_image;
 		
-		Position vector_from_direction(const Direction direction) const;
-		unsigned int angle_from_direction(const Direction direction) const;
+		Position vector_from_direction(Direction direction) const;
+		Position inversed_vector(Direction direction) const;
+		unsigned int angle_from_direction(Direction direction) const;
 
 		float m_scale;
 };

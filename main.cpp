@@ -10,6 +10,7 @@ const unsigned int MAP_WIDTH = 60;
 const unsigned int SNAKE_WIDTH = 10;
 const unsigned int FOOD_WIDTH = 2 * SNAKE_WIDTH;
 const unsigned int START_LENGTH = 5;
+const unsigned int SNAKE_SPEED = 25;
 
 const sf::Color BACKGROUND_COLOR = sf::Color::Blue;
 const sf::Color FOOD_COLOR = sf::Color::Green;
@@ -17,16 +18,18 @@ const std::string HEAD_IMAGE_PATH = "images/head_image.png", BODY_IMAGE_PATH = "
 
 int main()
 {
-	sf::RenderWindow game_window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "IncloSnake");
-	game_window.setFramerateLimit(10);
+	sf::RenderWindow game_window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Snake");
+	game_window.setVerticalSyncEnabled(true);
 
 	Direction head_direction = None; 
 
-	Snake snake(Position {0, 0}, START_LENGTH, Right);
+	Snake snake(Position {MAP_WIDTH/2, MAP_WIDTH/2}, START_LENGTH, Down);
 	snake.set_style(SNAKE_WIDTH, HEAD_IMAGE_PATH, BODY_IMAGE_PATH, TAIL_IMAGE_PATH);
 
 	FoodPoints food_system(snake, MAP_WIDTH, MAP_WIDTH);
 	food_system.set_style(FOOD_WIDTH, FOOD_COLOR);
+
+	sf::Clock clock;
 	
 	while(game_window.isOpen())
 	{
@@ -45,8 +48,14 @@ int main()
 			}
 		}
 
-		if(head_direction != None)
+		
+		sf::Time elapsed = clock.getElapsedTime();
+
+		if(head_direction != None && elapsed.asSeconds() > 1/static_cast<float>(SNAKE_SPEED))
+		{
 			snake.move_head(head_direction);
+			clock.restart();
+		}
 
 		food_system.update();
 
