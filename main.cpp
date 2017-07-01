@@ -10,7 +10,7 @@ const unsigned int WINDOW_HEIGHT = 500;
 const unsigned int MAP_WIDTH = 25;
 const unsigned int SNAKE_WIDTH = 20;
 const unsigned int FOOD_WIDTH = 2 * SNAKE_WIDTH;
-const unsigned int START_LENGTH = 1;
+const unsigned int START_LENGTH = 200;
 const unsigned int SNAKE_SPEED = 25;
 
 const sf::Color BACKGROUND_COLOR = sf::Color::Blue;

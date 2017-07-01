@@ -1,5 +1,10 @@
 #include "Snake.h"
 
+bool Position::operator==(const Position &other)
+{
+	return x == other.x && y == other.y;
+}
+
 Snake::Snake(Position head_position, unsigned int body_length, Direction body_direction) : m_body_length(0), m_scale(1)
 {
 	m_body_parts.push_back(head_position);
@@ -132,4 +137,23 @@ unsigned int Snake::angle_from_direction(Direction direction) const
 		return 180;
 	if(direction == Down || direction == None)
 		return 0;
+}
+
+bool Snake::cover(Position position, unsigned int area_width) const
+{
+	for(int y = position.y; y < position.y + area_width; ++y)
+	{
+		for(int x = position.x; x < position.x + area_width; ++x)
+		{
+			Position current = {x, y};
+
+			for(Position body : m_body_parts)
+			{
+				if(current == body)
+					return true;
+			}
+		}
+	}
+
+	return false;
 }

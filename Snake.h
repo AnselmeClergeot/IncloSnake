@@ -5,6 +5,8 @@
 struct Position
 {
 	int x, y;
+
+	bool operator==(const Position &other);
 };
 
 class Snake
@@ -21,6 +23,8 @@ class Snake
 		void draw(sf::RenderWindow &window);
 
 		unsigned int get_body_width() const;
+
+		bool cover(Position position, unsigned int area_width) const;
 
 		Position get_head_position() const;
 
