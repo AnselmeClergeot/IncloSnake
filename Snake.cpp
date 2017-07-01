@@ -27,6 +27,8 @@ bool Snake::move_head(Direction direction)
 	m_body_parts.erase(m_body_parts.end() - 1);
 	m_body_parts_directions.erase(m_body_parts_directions.end() - 1);
 
+	m_body_parts_directions[m_body_parts_directions.size() - 1] = m_body_parts_directions[m_body_parts_directions.size() - 2];
+
 	Position vector = vector_from_direction(direction);
 
 	m_body_parts.insert(m_body_parts.begin(), Position { position_tete.x + vector.x, position_tete.y + vector.y });
