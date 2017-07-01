@@ -31,7 +31,7 @@ int main()
 
 	sf::Clock clock;
 
-	SoundSystem sounds("sounds/8_Bit_Portal_-_Still_Alive.wav", "sounds/eat_sound.wav");
+	SoundSystem sounds("sounds/8_Bit_Portal_-_Still_Alive.wav", "sounds/eat_sound.wav", "sounds/move_sound.wav");
 
 	food_system.set_sound_system(sounds);
 	
@@ -44,7 +44,7 @@ int main()
 		
 		while(game_window.pollEvent(event))
 		{
-			read_direction(event, head_direction, last_direction);
+			read_direction(event, head_direction, last_direction, sounds);
 
 			switch(event.type)
 			{
