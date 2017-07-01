@@ -157,3 +157,8 @@ bool Snake::cover(Position position, unsigned int area_width) const
 
 	return false;
 }
+
+unsigned int Snake::get_total_length() const
+{
+	return m_body_parts.size();
+}

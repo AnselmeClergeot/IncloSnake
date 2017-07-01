@@ -5,6 +5,7 @@
 #include "FoodPoints.h"
 #include "SoundSystem.h"
 #include "TileBackground.h"
+#include "ScoreSystem.h"
 
 const unsigned int WINDOW_WIDTH = 520;
 const unsigned int WINDOW_HEIGHT = 520;
@@ -40,6 +41,8 @@ int main()
 
 	TileBackground background("images/background_tile.png", 10, 52);
 
+	ScoreSystem scoring("fonts/PressStart2P.ttf", 30, sf::Color::Black);
+
 	while(game_window.isOpen())
 	{
 		sf::Event event;
@@ -66,6 +69,8 @@ int main()
 			last_direction = head_direction;
 		}
 
+		scoring.set_score(snake.get_total_length());
+
 		food_system.update();
 
 		game_window.clear();
@@ -73,6 +78,7 @@ int main()
 		background.draw(game_window);
 		snake.draw(game_window);		
 		food_system.draw(game_window);
+		scoring.draw(game_window, WINDOW_WIDTH/2, 20);
 
 		game_window.display();
 	}

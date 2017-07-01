@@ -24,6 +24,8 @@ class Snake
 
 		unsigned int get_body_width() const;
 
+		unsigned int get_total_length() const;
+
 		bool cover(Position position, unsigned int area_width) const;
 
 		Position get_head_position() const;
