@@ -16,6 +16,8 @@ const unsigned int FOOD_WIDTH = 2 * SNAKE_WIDTH;
 const unsigned int START_LENGTH = 1;
 const unsigned int SNAKE_SPEED = 25;
 
+const unsigned int START_DELAY = 1, LOOSE_DELAY = 3;
+
 const sf::Color BACKGROUND_COLOR = sf::Color::Blue;
 const std::string HEAD_IMAGE_PATH = "images/head_image.png", BODY_IMAGE_PATH = "images/body_image.png", TAIL_IMAGE_PATH = "images/tail_image.png", POINT_IMAGE_PATH = "images/food_image.png";
 
@@ -70,7 +72,7 @@ int main()
 			}
 		}
 
-		if(ready_to_start && elapsed.asSeconds() > 3 && head_direction != None && head_direction != Up)
+		if(ready_to_start && elapsed.asSeconds() > START_DELAY && head_direction != None && head_direction != Up)
 		{
 			gui.close();
 			playing = true;
@@ -79,8 +81,9 @@ int main()
 		if(loose)
 		{
 			gui.show_loose_menu("Poor Inclo hurts himself :(");
-			
-			if(elapsed.asSeconds() > 3)
+			ready_to_start = false;
+	
+			if(elapsed.asSeconds() > LOOSE_DELAY)
 			{
 				gui.close();
 				gui.show_start_menu();
@@ -105,6 +108,8 @@ int main()
 
 				clock.restart();
 				last_direction = head_direction;
+
+					
 			}
 		}
 
