@@ -1,6 +1,6 @@
 #include "Snake.h"
 
-Snake::Snake(Position head_position, unsigned int body_length, Direction body_direction) : m_body_length(0)
+Snake::Snake(Position head_position, unsigned int body_length, Direction body_direction) : m_body_length(0), m_scale(1)
 {
 	m_body_parts.push_back(head_position);
 	m_body_parts_directions.push_back(body_direction);
@@ -15,6 +15,9 @@ void Snake::set_style(unsigned int body_width, std::string head_image, std::stri
 	m_head_image.loadFromFile(head_image);
 	m_body_image.loadFromFile(body_image);
 	m_tail_image.loadFromFile(tail_image);
+
+	
+	m_scale = m_body_width/static_cast<float>(m_head_image.getSize().x);
 }
 
 bool Snake::move_head(Direction direction)
@@ -48,6 +51,11 @@ void Snake::enlarge(unsigned int length)
 	}
 }
 
+unsigned int Snake::get_body_width() const
+{
+	return m_body_width;
+}
+
 void Snake::draw(sf::RenderWindow &window)
 {
 	sf::Sprite sprite;
@@ -63,13 +71,13 @@ void Snake::draw(sf::RenderWindow &window)
 		
 		Position pos = m_body_parts[i];
 
-		sprite.setPosition(pos.x * m_body_width, pos.y * m_body_width);
-
 		sprite.setOrigin(32, 32);
-		
-		float scale = m_body_width/static_cast<float>(m_head_image.getSize().x);
 
-		sprite.setScale(scale, scale);
+		sprite.setPosition(pos.x * m_body_width + 32 * m_scale, pos.y * m_body_width + 32 * m_scale);
+
+		sprite.setScale(m_scale, m_scale);
+		
+
 		sprite.setRotation(angle_from_direction(m_body_parts_directions[i]));
 		
 		window.draw(sprite);

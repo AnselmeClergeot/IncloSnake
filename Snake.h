@@ -20,6 +20,8 @@ class Snake
 
 		void draw(sf::RenderWindow &window);
 
+		unsigned int get_body_width() const;
+
 		Position get_head_position() const;
 
 	private :
@@ -32,4 +34,6 @@ class Snake
 		
 		Position vector_from_direction(const Direction direction) const;
 		unsigned int angle_from_direction(const Direction direction) const;
+
+		float m_scale;
 };
