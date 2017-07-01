@@ -6,6 +6,7 @@
 #include "SoundSystem.h"
 #include "TileBackground.h"
 #include "ScoreSystem.h"
+#include "Gui.h"
 
 const unsigned int WINDOW_WIDTH = 520;
 const unsigned int WINDOW_HEIGHT = 520;
@@ -37,20 +38,30 @@ int main()
 
 	food_system.set_sound_system(sounds);
 	
-	Direction last_direction = None;
+	Direction last_direction = Down;
 
 	TileBackground background("images/background_tile.png", 10, 52);
 
 	ScoreSystem scoring("fonts/PressStart2P.ttf", 30, sf::Color::Black);
 
+	Gui gui("fonts/PressStart2P.ttf");
+	gui.show_start_menu();
+
+	bool ready_to_start = true;
+	bool playing = false;
+	bool loose = false;
+
 	while(game_window.isOpen())
 	{
 		sf::Event event;
 		
+
+		sf::Time elapsed = clock.getElapsedTime();
+
 		while(game_window.pollEvent(event))
 		{
 			read_direction(event, head_direction, last_direction, sounds);
-
+	
 			switch(event.type)
 			{
 				case sf::Event::Closed :
@@ -59,17 +70,45 @@ int main()
 			}
 		}
 
-		
-		sf::Time elapsed = clock.getElapsedTime();
-
-		if(head_direction != None && elapsed.asSeconds() > 1/static_cast<float>(SNAKE_SPEED))
+		if(ready_to_start && elapsed.asSeconds() > 3 && head_direction != None && head_direction != Up)
 		{
-			snake.move_head(head_direction);
-			clock.restart();
-			last_direction = head_direction;
+			gui.close();
+			playing = true;
 		}
 
-		scoring.set_score(snake.get_total_length());
+		if(loose)
+		{
+			gui.show_loose_menu("Poor Inclo hurts himself :(");
+			
+			if(elapsed.asSeconds() > 3)
+			{
+				gui.close();
+				gui.show_start_menu();
+				
+				loose = false;
+				ready_to_start = true;
+				playing = false;
+
+				snake.reset(Position {MAP_WIDTH/2, MAP_WIDTH/2}, START_LENGTH, Down);		
+
+				clock.restart();
+			}
+		}
+		
+
+		if(playing)
+		{
+			if(elapsed.asSeconds() > 1/static_cast<float>(SNAKE_SPEED))
+			{
+				playing = snake.move_head(head_direction);
+				loose = !playing;
+
+				clock.restart();
+				last_direction = head_direction;
+			}
+		}
+
+		scoring.set_score(snake.get_total_length() - 2); // -2 because we don't count head and tail
 
 		food_system.update();
 
@@ -79,6 +118,7 @@ int main()
 		snake.draw(game_window);		
 		food_system.draw(game_window);
 		scoring.draw(game_window, WINDOW_WIDTH/2, 20);
+		gui.draw(game_window, WINDOW_WIDTH/2, 300);
 
 		game_window.display();
 	}

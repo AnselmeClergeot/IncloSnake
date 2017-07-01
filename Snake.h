@@ -30,6 +30,8 @@ class Snake
 
 		Position get_head_position() const;
 
+		void reset(Position head_position, unsigned int body_length, Direction body_direction);
+
 	private :
 		unsigned int m_body_length;
 		std::vector<Position> m_body_parts;

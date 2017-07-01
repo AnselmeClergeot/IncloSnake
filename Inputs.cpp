@@ -39,5 +39,5 @@ void read_direction(sf::Event &event, Direction &direction, Direction last_direc
 				}
 			break;
 		}
-	}		
+	}
 }

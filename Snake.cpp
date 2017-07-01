@@ -7,10 +7,21 @@ bool Position::operator==(const Position &other)
 
 Snake::Snake(Position head_position, unsigned int body_length, Direction body_direction) : m_body_length(0), m_scale(1)
 {
+	reset(head_position, body_length, body_direction);
+}
+
+void Snake::reset(Position head_position, unsigned int body_length, Direction body_direction)
+{
+	m_body_length = 0;
+
+	m_body_parts.clear();
+	m_body_parts_directions.clear();
+
 	m_body_parts.push_back(head_position);
 	m_body_parts_directions.push_back(body_direction);
 	
 	enlarge(body_length);
+
 }
 
 void Snake::set_style(unsigned int body_width, std::string head_image, std::string body_image, std::string tail_image)
@@ -29,15 +40,26 @@ bool Snake::move_head(Direction direction)
 {
 	Position position_tete = m_body_parts[0];
 
+	Position vector = vector_from_direction(direction);
+	Position new_pos = { position_tete.x + vector.x, position_tete.y + vector.y };
+
+	if(cover(new_pos, 1))
+	{
+		m_body_parts_directions[0] = direction;
+		return false;
+	}
+
+
 	m_body_parts.erase(m_body_parts.end() - 1);
 	m_body_parts_directions.erase(m_body_parts_directions.end() - 1);
 
 	m_body_parts_directions[m_body_parts_directions.size() - 1] = m_body_parts_directions[m_body_parts_directions.size() - 2];
 
-	Position vector = vector_from_direction(direction);
-
-	m_body_parts.insert(m_body_parts.begin(), Position { position_tete.x + vector.x, position_tete.y + vector.y });
+	
+	m_body_parts.insert(m_body_parts.begin(), new_pos);
 	m_body_parts_directions.insert(m_body_parts_directions.begin(), direction);
+
+	return true;
 }
 
 void Snake::enlarge(unsigned int length)
@@ -84,7 +106,6 @@ void Snake::draw(sf::RenderWindow &window)
 
 		sprite.setScale(m_scale, m_scale);
 		
-
 		sprite.setRotation(angle_from_direction(m_body_parts_directions[i]));
 		
 		window.draw(sprite);
