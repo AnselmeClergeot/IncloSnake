@@ -4,13 +4,14 @@
 #include "Inputs.h"
 #include "FoodPoints.h"
 #include "SoundSystem.h"
+#include "TileBackground.h"
 
-const unsigned int WINDOW_WIDTH = 500;
-const unsigned int WINDOW_HEIGHT = 500;
+const unsigned int WINDOW_WIDTH = 520;
+const unsigned int WINDOW_HEIGHT = 520;
 const unsigned int MAP_WIDTH = 25;
 const unsigned int SNAKE_WIDTH = 20;
 const unsigned int FOOD_WIDTH = 2 * SNAKE_WIDTH;
-const unsigned int START_LENGTH = 200;
+const unsigned int START_LENGTH = 1;
 const unsigned int SNAKE_SPEED = 25;
 
 const sf::Color BACKGROUND_COLOR = sf::Color::Blue;
@@ -35,8 +36,9 @@ int main()
 
 	food_system.set_sound_system(sounds);
 	
-
 	Direction last_direction = None;
+
+	TileBackground background("images/background_tile.png", 10, 52);
 
 	while(game_window.isOpen())
 	{
@@ -66,8 +68,9 @@ int main()
 
 		food_system.update();
 
-		game_window.clear(BACKGROUND_COLOR);
+		game_window.clear();
 
+		background.draw(game_window);
 		snake.draw(game_window);		
 		food_system.draw(game_window);
 

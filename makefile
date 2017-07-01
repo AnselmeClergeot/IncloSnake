@@ -1,6 +1,6 @@
 CXXFLAGS = -std=c++14 -O6 -c
 SFMLLIB = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
-OBJECTS = main.o Snake.o Inputs.o FoodPoints.o Point.o Random.o SoundSystem.o
+OBJECTS = main.o Snake.o Inputs.o FoodPoints.o Point.o Random.o SoundSystem.o TileBackground.o
 
 all : $(OBJECTS)
 	g++ $(OBJECTS) $(SFMLLIB) -o snake
@@ -25,6 +25,9 @@ Random.o : Random.cpp
 
 SoundSystem.o : SoundSystem.cpp
 	g++ $(CXXFLAGS) SoundSystem.cpp
+
+TileBackground.o : TileBackground.cpp
+	g++ $(CXXFLAGS) TileBackground.cpp
 
 clean :
 	rm snake *.o
