@@ -16,7 +16,7 @@ const unsigned int FOOD_WIDTH = 2 * SNAKE_WIDTH;
 const unsigned int START_LENGTH = 1;
 const unsigned int SNAKE_SPEED = 25;
 
-const unsigned int START_DELAY = 1, LOOSE_DELAY = 3;
+const unsigned int START_DELAY = 1, LOOSE_DELAY = 2;
 
 const sf::Color BACKGROUND_COLOR = sf::Color::Blue;
 const std::string HEAD_IMAGE_PATH = "images/head_image.png", BODY_IMAGE_PATH = "images/body_image.png", TAIL_IMAGE_PATH = "images/tail_image.png", POINT_IMAGE_PATH = "images/food_image.png";

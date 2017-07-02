@@ -45,7 +45,8 @@ bool Snake::move_head(Direction direction)
 
 	if(cover(new_pos, 1) || new_pos.x < 0 || new_pos.y < 0 || new_pos.x >= m_map_width || new_pos.y >= m_map_width)
 	{
-		m_body_parts_directions[0] = direction;
+		if(m_body_length > 2)
+			m_body_parts_directions[0] = direction;
 		return false;
 	}
 
