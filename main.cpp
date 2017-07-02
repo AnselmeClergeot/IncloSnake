@@ -64,6 +64,8 @@ int main()
 		{
 			read_direction(event, head_direction, last_direction);
 
+			
+
 			switch(event.type)
 			{
 				case sf::Event::Closed :
@@ -76,6 +78,12 @@ int main()
 		{
 			gui.close();
 			playing = true;
+			ready_to_start = false;
+		}
+
+		if(ready_to_start && elapsed.asSeconds() < START_DELAY)
+		{
+			head_direction = None;
 		}
 
 		if(loose)
