@@ -14,7 +14,7 @@ const unsigned int MAP_WIDTH = 25;
 const unsigned int SNAKE_WIDTH = 20;
 const unsigned int FOOD_WIDTH = 2 * SNAKE_WIDTH;
 const unsigned int START_LENGTH = 1;
-const unsigned int SNAKE_SPEED = 25;
+const unsigned int SNAKE_SPEED = 20;
 
 const unsigned int START_DELAY = 1, LOOSE_DELAY = 2;
 

@@ -101,9 +101,11 @@ void Snake::draw(sf::RenderWindow &window)
 		
 		Position pos = m_body_parts[i];
 
-		sprite.setOrigin(32, 32);
+		unsigned int sprite_width = m_head_image.getSize().x;
 
-		sprite.setPosition(pos.x * m_body_width + 32 * m_scale, pos.y * m_body_width + 32 * m_scale);
+		sprite.setOrigin(sprite_width/2, sprite_width/2);
+
+		sprite.setPosition(pos.x * m_body_width + sprite_width/2 * m_scale, pos.y * m_body_width + sprite_width/2 * m_scale);
 
 		sprite.setScale(m_scale, m_scale);
 		
