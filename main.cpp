@@ -45,6 +45,7 @@ int main()
 	TileBackground background("images/background_tile.png", 10, 52);
 
 	ScoreSystem scoring("fonts/PressStart2P.ttf", 30, sf::Color::Black);
+	scoring.set_best_score(0);
 
 	Gui gui("fonts/PressStart2P.ttf");
 	gui.show_start_menu();
@@ -88,7 +89,7 @@ int main()
 
 		if(loose)
 		{
-			gui.show_loose_menu("Poor Inclo hurts himself :(");
+			gui.show_loose_menu();
 			ready_to_start = false;
 	
 			if(elapsed.asSeconds() > LOOSE_DELAY)
@@ -101,6 +102,8 @@ int main()
 				playing = false;
 
 				snake.reset(Position {MAP_WIDTH/2, MAP_WIDTH/2}, START_LENGTH, Down);		
+
+				food_system.reset();
 
 				clock.restart();
 			}
@@ -130,7 +133,7 @@ int main()
 		background.draw(game_window);
 		snake.draw(game_window);		
 		food_system.draw(game_window);
-		scoring.draw(game_window, WINDOW_WIDTH/2, 20);
+		scoring.draw(game_window, WINDOW_WIDTH/2, 20, 0, 0);
 		gui.draw(game_window, WINDOW_WIDTH/2, 300);
 
 		game_window.display();
