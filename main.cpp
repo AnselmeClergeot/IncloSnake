@@ -28,7 +28,7 @@ int main()
 
 	Direction head_direction = None; 
 
-	Snake snake(Position {MAP_WIDTH/2, MAP_WIDTH/2}, START_LENGTH, Down, MAP_WIDTH);
+	Snake snake(Position {MAP_WIDTH/2, MAP_WIDTH/2 + 2}, START_LENGTH, Up, MAP_WIDTH);
 	snake.set_style(SNAKE_WIDTH, HEAD_IMAGE_PATH, BODY_IMAGE_PATH, TAIL_IMAGE_PATH);
 
 	FoodPoints food_system(snake, MAP_WIDTH, MAP_WIDTH);
@@ -40,12 +40,11 @@ int main()
 
 	food_system.set_sound_system(sounds);
 	
-	Direction last_direction = Down;
+	Direction last_direction = Up;
 
 	TileBackground background("images/background_tile.png", 10, 52);
 
-	ScoreSystem scoring("fonts/PressStart2P.ttf", 30, sf::Color::Black);
-	scoring.set_best_score(0);
+	ScoreSystem scoring("fonts/PressStart2P.ttf", 30, sf::Color::White);
 
 	Gui gui("fonts/PressStart2P.ttf");
 	gui.show_start_menu();
@@ -71,6 +70,7 @@ int main()
 			{
 				case sf::Event::Closed :
 					game_window.close();
+					scoring.write_best_score();
 				break;
 			}
 		}
@@ -100,9 +100,9 @@ int main()
 				playing = false;
 
 				head_direction = None;
-				last_direction = Down;
+				last_direction = Up;
 
-				snake.reset(Position {MAP_WIDTH/2, MAP_WIDTH/2}, START_LENGTH, Down);		
+				snake.reset(Position {MAP_WIDTH/2, MAP_WIDTH/2 + 2}, START_LENGTH, Up);		
 
 				food_system.reset();
 
@@ -124,6 +124,8 @@ int main()
 				clock.restart();
 				last_direction = head_direction;
 
+				scoring.write_best_score();
+
 					
 			}
 		}
@@ -138,7 +140,7 @@ int main()
 		snake.draw(game_window);		
 		food_system.draw(game_window);
 		scoring.draw(game_window, WINDOW_WIDTH/2, 20, 0, 0);
-		gui.draw(game_window, WINDOW_WIDTH/2, 300);
+		gui.draw(game_window, WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
 
 		game_window.display();
 	}
