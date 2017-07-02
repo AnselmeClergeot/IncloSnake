@@ -1,4 +1,4 @@
-#include "Snake.h"
+#include "../include/Snake.h"
 
 bool Position::operator==(const Position &other)
 {

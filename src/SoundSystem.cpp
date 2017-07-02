@@ -1,4 +1,4 @@
-#include "SoundSystem.h"
+#include "../include/SoundSystem.h"
 
 SoundSystem::SoundSystem(std::string music_path, std::string eat_sound_path, std::string hurt_sound_path)
 {

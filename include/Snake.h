@@ -1,6 +1,6 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include "Direction.h"
+#include "../include/Direction.h"
 
 struct Position
 {

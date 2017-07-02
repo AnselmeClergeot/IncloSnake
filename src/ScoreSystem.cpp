@@ -2,7 +2,7 @@
 #include <string>
 #include <fstream>
 
-#include "ScoreSystem.h"
+#include "../include/ScoreSystem.h"
 
 ScoreSystem::ScoreSystem(std::string font_path, unsigned int font_size, sf::Color color)
 {

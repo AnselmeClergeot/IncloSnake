@@ -6,35 +6,35 @@ CCXX = g++
 all : $(OBJECTS)
 	$(CCXX) $(OBJECTS) $(SFMLLIB) -o snake
 
-main.o : main.cpp
-	$(CCXX) $(CXXFLAGS) main.cpp
+main.o : src/main.cpp
+	$(CCXX) $(CXXFLAGS) src/main.cpp
 
-Snake.o : Snake.cpp
-	$(CCXX) $(CXXFLAGS) Snake.cpp
+Snake.o : src/Snake.cpp
+	$(CCXX) $(CXXFLAGS) src/Snake.cpp
 
-Inputs.o : Inputs.cpp
-	$(CCXX)$(CXXFLAGS) Inputs.cpp
+Inputs.o : src/Inputs.cpp
+	$(CCXX)$(CXXFLAGS) src/Inputs.cpp
 
-FoodPoints.o : FoodPoints.cpp
-	$(CCXX) $(CXXFLAGS) FoodPoints.cpp
+FoodPoints.o : src/FoodPoints.cpp
+	$(CCXX) $(CXXFLAGS) src/FoodPoints.cpp
 
-Point.o : Point.cpp
-	$(CCXX) $(CXXFLAGS) Point.cpp
+Point.o : src/Point.cpp
+	$(CCXX) $(CXXFLAGS) src/Point.cpp
 
-Random.o : Random.cpp
-	$(CCXX) $(CXXFLAGS) Random.cpp
+Random.o : src/Random.cpp
+	$(CCXX) $(CXXFLAGS) src/Random.cpp
 
-SoundSystem.o : SoundSystem.cpp
-	$(CCXX) $(CXXFLAGS) SoundSystem.cpp
+SoundSystem.o : src/SoundSystem.cpp
+	$(CCXX) $(CXXFLAGS) src/SoundSystem.cpp
 
-TileBackground.o : TileBackground.cpp
-	$(CCXX) $(CXXFLAGS) TileBackground.cpp
+TileBackground.o : src/TileBackground.cpp
+	$(CCXX) $(CXXFLAGS) src/TileBackground.cpp
 
-ScoreSystem.o : ScoreSystem.cpp
-	$(CCXX) $(CXXFLAGS) ScoreSystem.cpp
+ScoreSystem.o : src/ScoreSystem.cpp
+	$(CCXX) $(CXXFLAGS) src/ScoreSystem.cpp
 
-Gui.o : Gui.cpp
-	$(CCXX) $(CXXFLAGS) Gui.cpp
+Gui.o : src/Gui.cpp
+	$(CCXX) $(CXXFLAGS) src/Gui.cpp
 
 clean :
 	rm snake *.o

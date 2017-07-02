@@ -1,7 +1,7 @@
-#include "FoodPoints.h"
-#include "Random.h"
+#include "../include/FoodPoints.h"
+#include "../include/Random.h"
 #include <cmath>
-#include "SoundSystem.h"
+#include "../include/SoundSystem.h"
 
 FoodPoints::FoodPoints(Snake &snake, unsigned int width) : m_snake(snake), m_food_points(), m_map_width(width)
 {

@@ -1,5 +1,5 @@
-#include "Inputs.h"
-#include "SoundSystem.h"
+#include "../include/Inputs.h"
+#include "../include/SoundSystem.h"
 
 void read_direction(sf::Event &event, Direction &direction, Direction last_direction)
 {

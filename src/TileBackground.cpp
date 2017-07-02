@@ -1,4 +1,4 @@
-#include "TileBackground.h"
+#include "../include/TileBackground.h"
 
 TileBackground::TileBackground(std::string texture, unsigned int map_width, unsigned int tile_width) : m_map_width(map_width), m_tile_width(tile_width)
 {

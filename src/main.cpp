@@ -1,11 +1,11 @@
 #include <SFML/Graphics.hpp>
 
-#include "Inputs.h"
-#include "FoodPoints.h"
-#include "SoundSystem.h"
-#include "TileBackground.h"
-#include "ScoreSystem.h"
-#include "Gui.h"
+#include "../include/Inputs.h"
+#include "../include/FoodPoints.h"
+#include "../include/SoundSystem.h"
+#include "../include/TileBackground.h"
+#include "../include/ScoreSystem.h"
+#include "../include/Gui.h"
 
 const unsigned int WINDOW_WIDTH = 500;
 const unsigned int MAP_WIDTH = 25;

@@ -1,4 +1,4 @@
-#include "Point.h"
+#include "../include/Point.h"
 
 Point::Point(unsigned int width, sf::Texture image, Position position) : m_width(width), m_image(image), m_position(position), m_value(2)
 {

@@ -1,4 +1,4 @@
-#include "Gui.h"
+#include "../include/Gui.h"
 
 Gui::Gui(std::string font_path)
 {

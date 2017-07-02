@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "Snake.h"
+#include "../include/Snake.h"
 
 class Point
 {
