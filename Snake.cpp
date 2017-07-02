@@ -5,7 +5,7 @@ bool Position::operator==(const Position &other)
 	return x == other.x && y == other.y;
 }
 
-Snake::Snake(Position head_position, unsigned int body_length, Direction body_direction) : m_body_length(0), m_scale(1)
+Snake::Snake(Position head_position, unsigned int body_length, Direction body_direction, unsigned int map_width) : m_body_length(0), m_scale(1), m_map_width(map_width)
 {
 	reset(head_position, body_length, body_direction);
 }
@@ -43,7 +43,7 @@ bool Snake::move_head(Direction direction)
 	Position vector = vector_from_direction(direction);
 	Position new_pos = { position_tete.x + vector.x, position_tete.y + vector.y };
 
-	if(cover(new_pos, 1))
+	if(cover(new_pos, 1) || new_pos.x < 0 || new_pos.y < 0 || new_pos.x >= m_map_width || new_pos.y >= m_map_width)
 	{
 		m_body_parts_directions[0] = direction;
 		return false;

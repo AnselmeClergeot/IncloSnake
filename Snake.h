@@ -12,7 +12,7 @@ struct Position
 class Snake
 {
 	public :
-		Snake(Position head_position, unsigned int body_length, Direction body_direction);
+		Snake(Position head_position, unsigned int body_length, Direction body_direction, unsigned int map_width);
 		
 		void set_style(unsigned int width, std::string head_image, std::string body_image, std::string tail_image);
 		
@@ -43,6 +43,8 @@ class Snake
 		Position vector_from_direction(Direction direction) const;
 		Position inversed_vector(Direction direction) const;
 		unsigned int angle_from_direction(Direction direction) const;
+
+		unsigned int m_map_width;
 
 		float m_scale;
 };

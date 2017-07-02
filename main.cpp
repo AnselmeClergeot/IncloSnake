@@ -8,8 +8,8 @@
 #include "ScoreSystem.h"
 #include "Gui.h"
 
-const unsigned int WINDOW_WIDTH = 520;
-const unsigned int WINDOW_HEIGHT = 520;
+const unsigned int WINDOW_WIDTH = 500;
+const unsigned int WINDOW_HEIGHT = 500;
 const unsigned int MAP_WIDTH = 25;
 const unsigned int SNAKE_WIDTH = 20;
 const unsigned int FOOD_WIDTH = 2 * SNAKE_WIDTH;
@@ -28,7 +28,7 @@ int main()
 
 	Direction head_direction = None; 
 
-	Snake snake(Position {MAP_WIDTH/2, MAP_WIDTH/2}, START_LENGTH, Down);
+	Snake snake(Position {MAP_WIDTH/2, MAP_WIDTH/2}, START_LENGTH, Down, MAP_WIDTH);
 	snake.set_style(SNAKE_WIDTH, HEAD_IMAGE_PATH, BODY_IMAGE_PATH, TAIL_IMAGE_PATH);
 
 	FoodPoints food_system(snake, MAP_WIDTH, MAP_WIDTH);
@@ -36,7 +36,7 @@ int main()
 
 	sf::Clock clock;
 
-	SoundSystem sounds("sounds/8_Bit_Portal_-_Still_Alive.wav", "sounds/eat_sound.wav", "sounds/move_sound.wav");
+	SoundSystem sounds("sounds/8_Bit_Portal_-_Still_Alive.wav", "sounds/eat_sound.wav");
 
 	food_system.set_sound_system(sounds);
 	
@@ -62,8 +62,8 @@ int main()
 
 		while(game_window.pollEvent(event))
 		{
-			read_direction(event, head_direction, last_direction, sounds);
-	
+			read_direction(event, head_direction, last_direction);
+
 			switch(event.type)
 			{
 				case sf::Event::Closed :
