@@ -6,7 +6,7 @@ class SoundSystem;
 class FoodPoints
 {
 	public : 
-		FoodPoints(Snake &snake, unsigned int width, unsigned int height);
+		FoodPoints(Snake &snake, unsigned int width);
 
 		void set_style(unsigned int width, std::string food_image);
 
@@ -20,7 +20,7 @@ class FoodPoints
 
 	private :
 
-		unsigned int m_map_width, m_map_height;
+		unsigned int m_map_width;
 		unsigned int m_point_width;
 		sf::Texture m_food_image;
 

@@ -1,4 +1,3 @@
-#include <list>
 #include <SFML/Graphics.hpp>
 
 #include "Inputs.h"
@@ -9,62 +8,66 @@
 #include "Gui.h"
 
 const unsigned int WINDOW_WIDTH = 500;
-const unsigned int WINDOW_HEIGHT = 500;
 const unsigned int MAP_WIDTH = 25;
 const unsigned int SNAKE_WIDTH = 20;
 const unsigned int FOOD_WIDTH = 2 * SNAKE_WIDTH;
 const unsigned int START_LENGTH = 1;
 const unsigned int SNAKE_SPEED = 20;
-
 const unsigned int START_DELAY = 1, LOOSE_DELAY = 2;
+const Position SNAKE_START_POS { MAP_WIDTH/2, MAP_WIDTH/2 + 2 };
+const Direction SNAKE_START_DIRECTION = Up;
 
-const sf::Color BACKGROUND_COLOR = sf::Color::Blue;
-const std::string HEAD_IMAGE_PATH = "images/head_image.png", BODY_IMAGE_PATH = "images/body_image.png", TAIL_IMAGE_PATH = "images/tail_image.png", POINT_IMAGE_PATH = "images/food_image.png";
+const unsigned int BG_TILE_WIDTH = 52;
+const unsigned int BG_WIDTH = 10;
+
+const unsigned int SCORE_FONT_SIZE  = 30;
+const sf::Color SCORE_FONT_COLOR = sf::Color::White;
+
+const Position SCORE_POS {WINDOW_WIDTH/2, 20};
+const Position BEST_SCORE_POS {0, 0};
+const Position MENU_POS {WINDOW_WIDTH/2, WINDOW_WIDTH/2};
 
 int main()
 {
-	sf::RenderWindow game_window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Snake");
+	sf::RenderWindow game_window(sf::VideoMode(WINDOW_WIDTH, WINDOW_WIDTH), "Inclo the Snake");
 	game_window.setVerticalSyncEnabled(true);
 
-	Direction head_direction = None; 
+	Snake snake(SNAKE_START_POS, START_LENGTH, SNAKE_START_DIRECTION, MAP_WIDTH);
+	snake.set_style(SNAKE_WIDTH, "images/head_image.png", "images/body_image.png", "images/tail_image.png");
 
-	Snake snake(Position {MAP_WIDTH/2, MAP_WIDTH/2 + 2}, START_LENGTH, Up, MAP_WIDTH);
-	snake.set_style(SNAKE_WIDTH, HEAD_IMAGE_PATH, BODY_IMAGE_PATH, TAIL_IMAGE_PATH);
-
-	FoodPoints food_system(snake, MAP_WIDTH, MAP_WIDTH);
-	food_system.set_style(FOOD_WIDTH, POINT_IMAGE_PATH);
-
-	sf::Clock clock;
+	FoodPoints food_system(snake, MAP_WIDTH);
+	food_system.set_style(FOOD_WIDTH, "images/food_image.png");
 
 	SoundSystem sounds("sounds/8_Bit_Portal_-_Still_Alive.wav", "sounds/eat_sound.wav", "sounds/hurt_sound.wav");
-
 	food_system.set_sound_system(sounds);
 	
-	Direction last_direction = Up;
+	TileBackground background("images/background_tile.png", BG_WIDTH, BG_TILE_WIDTH);
 
-	TileBackground background("images/background_tile.png", 10, 52);
-
-	ScoreSystem scoring("fonts/PressStart2P.ttf", 30, sf::Color::White);
+	ScoreSystem scoring("fonts/PressStart2P.ttf", SCORE_FONT_SIZE, SCORE_FONT_COLOR);
 
 	Gui gui("fonts/PressStart2P.ttf");
+
 	gui.show_start_menu();
+
+	Direction head_direction = None; 
+	Direction last_direction = SNAKE_START_DIRECTION;
 
 	bool ready_to_start = true;
 	bool playing = false;
 	bool loose = false;
 
+	
+	sf::Clock clock;
+
+	sf::Event event;
+
 	while(game_window.isOpen())
 	{
-		sf::Event event;
-		
-
 		sf::Time elapsed = clock.getElapsedTime();
 
 		while(game_window.pollEvent(event))
 		{
 			read_direction(event, head_direction, last_direction);
-
-			
 
 			switch(event.type)
 			{
@@ -75,15 +78,13 @@ int main()
 			}
 		}
 
+		//MENU/PLAY/LOSE/LOSE_MENU cycle handling
 		if(ready_to_start && elapsed.asSeconds() > START_DELAY && head_direction != None)
 		{
 			gui.close();
 			playing = true;
 			ready_to_start = false;
 		}
-		if(ready_to_start && elapsed.asSeconds() < START_DELAY)
-			head_direction = None;
-		
 
 		if(loose)
 		{
@@ -102,35 +103,35 @@ int main()
 				head_direction = None;
 				last_direction = Up;
 
-				snake.reset(Position {MAP_WIDTH/2, MAP_WIDTH/2 + 2}, START_LENGTH, Up);		
+				snake.reset(SNAKE_START_POS, START_LENGTH, SNAKE_START_DIRECTION);		
 
 				food_system.reset();
 
 				clock.restart();
 			}
 		}
-		
-
+		//---	
+	
 		if(playing)
 		{
 			if(elapsed.asSeconds() > 1/static_cast<float>(SNAKE_SPEED))
 			{
 				playing = snake.move_head(head_direction);
 				loose = !playing;
-	
+
 				if(loose)
+				{
 					sounds.play_hurt_sound();
+					scoring.write_best_score();
+				}
 
 				clock.restart();
 				last_direction = head_direction;
-
-				scoring.write_best_score();
-
-					
 			}
 		}
 
-		scoring.set_score(snake.get_total_length() - 2); // -2 because we don't count head and tail
+
+		scoring.set_score(snake.get_total_length() - 2);
 
 		food_system.update();
 
@@ -139,8 +140,8 @@ int main()
 		background.draw(game_window);
 		snake.draw(game_window);		
 		food_system.draw(game_window);
-		scoring.draw(game_window, WINDOW_WIDTH/2, 20, 0, 0);
-		gui.draw(game_window, WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
+		scoring.draw(game_window, SCORE_POS.x, SCORE_POS.y, BEST_SCORE_POS.x, BEST_SCORE_POS.y);
+		gui.draw(game_window, MENU_POS.x, MENU_POS.y);
 
 		game_window.display();
 	}

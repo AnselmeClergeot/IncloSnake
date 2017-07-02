@@ -3,7 +3,7 @@
 #include <cmath>
 #include "SoundSystem.h"
 
-FoodPoints::FoodPoints(Snake &snake, unsigned int width, unsigned int height) : m_snake(snake), m_food_points(), m_map_width(width), m_map_height(height)
+FoodPoints::FoodPoints(Snake &snake, unsigned int width) : m_snake(snake), m_food_points(), m_map_width(width)
 {
 	srand(time(0));	
 }
@@ -51,7 +51,7 @@ void FoodPoints::add_new_point()
 
 	std::vector<Position> valid_positions;
 
-	for(int y = 0; y < m_map_height - 1; ++y)
+	for(int y = 0; y < m_map_width - 1; ++y)
 	{
 		for(int x = 0; x < m_map_width - 1; ++x)
 		{
