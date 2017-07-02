@@ -36,7 +36,7 @@ int main()
 
 	sf::Clock clock;
 
-	SoundSystem sounds("sounds/8_Bit_Portal_-_Still_Alive.wav", "sounds/eat_sound.wav");
+	SoundSystem sounds("sounds/8_Bit_Portal_-_Still_Alive.wav", "sounds/eat_sound.wav", "sounds/hurt_sound.wav");
 
 	food_system.set_sound_system(sounds);
 	
@@ -116,6 +116,9 @@ int main()
 			{
 				playing = snake.move_head(head_direction);
 				loose = !playing;
+	
+				if(loose)
+					sounds.play_hurt_sound();
 
 				clock.restart();
 				last_direction = head_direction;
