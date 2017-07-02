@@ -75,17 +75,15 @@ int main()
 			}
 		}
 
-		if(ready_to_start && elapsed.asSeconds() > START_DELAY && head_direction != None && head_direction != Up)
+		if(ready_to_start && elapsed.asSeconds() > START_DELAY && head_direction != None)
 		{
 			gui.close();
 			playing = true;
 			ready_to_start = false;
 		}
-
 		if(ready_to_start && elapsed.asSeconds() < START_DELAY)
-		{
 			head_direction = None;
-		}
+		
 
 		if(loose)
 		{
@@ -100,6 +98,9 @@ int main()
 				loose = false;
 				ready_to_start = true;
 				playing = false;
+
+				head_direction = None;
+				last_direction = Down;
 
 				snake.reset(Position {MAP_WIDTH/2, MAP_WIDTH/2}, START_LENGTH, Down);		
 

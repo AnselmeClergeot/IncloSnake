@@ -8,22 +8,22 @@ void read_direction(sf::Event &event, Direction &direction, Direction last_direc
 		switch(event.key.code)
 		{
 			case sf::Keyboard::Up :
-				if(last_direction != Down && last_direction != Up)
+				if(last_direction != Down)
 					direction = Up;		
 			break;
 
 			case sf::Keyboard::Down :
-				if(last_direction != Up && last_direction != Down)
+				if(last_direction != Up)
 					direction = Down;
 			break;
 
 			case sf::Keyboard::Left :
-				if(last_direction != Right && last_direction != Left)
+				if(last_direction != Right)
 					direction = Left;
 			break;
 
 			case sf::Keyboard::Right :
-				if(last_direction != Left && last_direction != Right)
+				if(last_direction != Left)
 					direction = Right;
 			break;
 		}
