@@ -4,7 +4,7 @@
 
 #include "../include/ScoreSystem.h"
 
-ScoreSystem::ScoreSystem(std::string font_path, unsigned int font_size, sf::Color color)
+ScoreSystem::ScoreSystem(std::string font_path, unsigned int font_size, sf::Color color) : m_score(0), m_best_score(0)
 {
 	std::ifstream file("score", std::ios::in);
 
