@@ -54,11 +54,10 @@ bool Snake::move_head(Direction direction)
 	m_body_parts.erase(m_body_parts.end() - 1);
 	m_body_parts_directions.erase(m_body_parts_directions.end() - 1);
 
-	m_body_parts_directions[m_body_parts_directions.size() - 1] = m_body_parts_directions[m_body_parts_directions.size() - 2];
-
-	
 	m_body_parts.insert(m_body_parts.begin(), new_pos);
 	m_body_parts_directions.insert(m_body_parts_directions.begin(), direction);
+
+	m_body_parts_directions[m_body_parts_directions.size() - 1] = m_body_parts_directions[m_body_parts_directions.size() - 2];
 
 	return true;
 }
